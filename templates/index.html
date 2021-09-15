@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFace</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #3498DB;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .btn {
+            border: none;
+            background-color: #2C3E50;
+            color: #FFF;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: large;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .btn:hover {
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        #output {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        #output:hover {
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        #file-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <img 
+            src="https://via.placeholder.com/150/ECF0F1/2C3E50/?text=Selecione"
+            id="output"
+            alt="preview"
+            onclick="upload()"
+        />
+        <input id="file-input" name="file" type="file" accept="image/*" onchange="loadFile(event)">
+        <button class="btn" type="submit">Enviar</button>
+    </form>
+    
+    <script>
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src)
+            }
+        };
+
+        function upload() {
+            var input = document.getElementById('file-input');
+            input.click();
+        }
+    </script>
+</body>
+</html>
